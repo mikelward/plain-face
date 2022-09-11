@@ -1,0 +1,19 @@
+#myTime {
+  font-size: 80;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 50%;
+  y: 30%+40;
+  fill: white;
+}
+
+#myDate {
+  font-size: 30;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 50%;
+  y: 30%+80;
+  fill: white;
+}
