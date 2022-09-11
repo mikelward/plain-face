@@ -1,12 +1,13 @@
 import clock from "clock";
 import * as document from "document";
-import { preferences } from "user-settings";
 import * as util from "../common/utils";
 
 clock.granularity = "minutes";
 
 const myTime = document.getElementById("myTime");
 const myDate = document.getElementById("myDate");
+const myTime2 = document.getElementById("myTime2");
+const myTime3 = document.getElementById("myTime3");
 
 const dayName = {
     0: 'Sun',
@@ -35,8 +36,21 @@ const monthName = {
 
 clock.ontick = (evt) => {
   let now = evt.date;
-  let hours = util.zeroPad(now.getHours());
-  let mins = util.zeroPad(now.getMinutes());
-  myTime.text = `${hours}:${mins}`;
+  myTime.text = formatTime(now);
   myDate.text = `${dayName[now.getDay()]} ${monthName[now.getMonth()]} ${now.getDate()}`;
+  myTime2.text = `${formatTimeWithOffset(now, -7)}`;
+  myTime3.text = `${formatTimeWithOffset(now, 10)}`;
+}
+
+function formatTime(date) {
+    return `${util.zeroPad(date.getHours())}:${util.zeroPad(date.getMinutes())}`;
+}
+
+function dateToTimezone(date, offsetMinutes) {
+    return new Date(date.getTime() + date.getTimezoneOffset()*60*1000 + offsetMinutes*60*1000);
+}
+
+function formatTimeWithOffset(date, offsetHours) {
+    const offsetTime = dateToTimezone(date, offsetHours*60);
+    return `${formatTime(offsetTime)} ${util.addSign(util.zeroPad(offsetHours))}00`;
 }
