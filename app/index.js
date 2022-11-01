@@ -1,6 +1,13 @@
 import clock from "clock";
+import { display } from "display";
 import * as document from "document";
+import { me as appbit } from "appbit";
 import * as util from "../common/utils";
+
+if (display.aodAvailable && appbit.permissions.granted("access_aod")) {
+    // Support AOD.
+    display.aodAllowed = true;
+}
 
 clock.granularity = "minutes";
 
@@ -39,7 +46,7 @@ clock.ontick = (evt) => {
   myTime.text = formatTime(now);
   myDate.text = `${dayName[now.getDay()]} ${monthName[now.getMonth()]} ${now.getDate()}`;
   myTime2.text = `${formatTimeWithOffset(now, -7)}`;
-  myTime3.text = `${formatTimeWithOffset(now, 10)}`;
+  myTime3.text = `${formatTimeWithOffset(now, 11)}`;
 }
 
 function formatTime(date) {
